@@ -24,3 +24,6 @@ coverage/
 .DS_Store
 .vscode/
 .idea/
+
+# Cachés de Python (hooks de .claude/)
+__pycache__/

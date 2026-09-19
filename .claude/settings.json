@@ -1,5 +1,47 @@
 {
+  "permissions": {
+    "allow": [
+      "Read(//Users/elena.pascual.otero/.nvm/versions/node/**)",
+      "Read(//Users/elena.pascual.otero/.nvm/alias/**)",
+      "Read(//opt/homebrew/Cellar/node/26.9.0/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(git checkout *)",
+      "Read(//tmp/**)",
+      "Skill(update-config)",
+      "Bash(echo \"exit=$?\")"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "atlassian"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/statusline.sh",
+    "padding": 0
+  },
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-prompt.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-outcome.py",
+            "async": true,
+            "timeout": 180
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
