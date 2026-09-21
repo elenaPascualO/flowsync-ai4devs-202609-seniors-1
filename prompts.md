@@ -271,4 +271,15 @@ anade la 5 y la 7 en la parte B del documento, tal y como dice el README y deja 
 /commit
 ```
 
+**Qué salió:** completó commit en `alcance-epo` con dos ficheros nuevos, pero se quedó a medias: Parte B pendiente y `prompts.md` incompleto. (3 herramientas)
+
+## Prompt 22
+
+**Modelo:** Opus 5 High
+**Herramienta:** Claude Code
+
+```
+te has equivocado. Necesito que borres la rama que has creado alcance-epo, vuelvas a s2/start y hagas commit y push en ella, luego crea una rama alcalce-epo en local a partir de upstream/s2/start y le anadas el fichero prompts.md y docs/prd/alcance-mvp-epo.md. La rama alcance-epo solo debe de llevar el prompts y el alcance, nada mas
+```
+
 **Qué salió:**
