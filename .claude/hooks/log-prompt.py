@@ -15,6 +15,10 @@ import sys
 
 STATUSLINE_JSON = "/tmp/claude-statusline-last.json"
 
+# UserPromptSubmit también salta con mensajes que no escribe la persona: informes de subagentes
+# y avisos de tareas en segundo plano. Llegan envueltos en estas etiquetas.
+NOT_TYPED = ("<agent-message", "<task-notification")
+
 
 def model_label():
     try:
@@ -30,7 +34,7 @@ def model_label():
 
 def main():
     prompt = json.load(sys.stdin).get("prompt", "")
-    if not prompt.strip():
+    if not prompt.strip() or prompt.lstrip().startswith(NOT_TYPED):
         return
 
     path = os.path.join(os.environ["CLAUDE_PROJECT_DIR"], "prompts.md")
