@@ -26,6 +26,8 @@ import time
 
 EDIT_TOOLS = {"Edit", "Write", "NotebookEdit", "MultiEdit"}
 MODEL = "haiku"
+# Mensajes que entran como turno de usuario sin haberlos escrito nadie (ver log-prompt.py).
+NOT_TYPED = ("<agent-message", "<task-notification")
 WAIT_REPLY_SECONDS = 20
 CLAUDE_TIMEOUT = 90
 MAX_LINE = 240
@@ -64,10 +66,8 @@ def is_prompt(row):
     """Mensaje de usuario escrito por la persona, no un tool_result ni un meta del sistema."""
     if row.get("type") != "user" or row.get("isSidechain") or row.get("isMeta"):
         return False
-    content = (row.get("message") or {}).get("content")
-    if isinstance(content, str):
-        return bool(content.strip())
-    return any(b.get("type") == "text" for b in blocks(row))
+    text = text_of(row).strip()
+    return bool(text) and not text.startswith(NOT_TYPED)
 
 
 def read_transcript(path):
